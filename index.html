@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday My Love! 🦫🌸💖</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts: Fredoka, Sacramento & Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Sacramento&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            capy: {
+              bg: '#FFF0F3',
+              cardBg: '#FFE5EC',
+              accent: '#FFB3C1',
+              hotPink: '#FF758F',
+              deepPink: '#FF4D6D',
+              brown: '#8D5B4C',
+              darkBrown: '#5C3D2E'
+            }
+          },
+          fontFamily: {
+            fredoka: ['"Fredoka"', 'sans-serif'],
+            quicksand: ['"Quicksand"', 'sans-serif'],
+            sacramento: ['"Sacramento"', 'cursive']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FFF0F3; }
+    ::-webkit-scrollbar-thumb { background: #FFB3C1; border-radius: 4px; }
+
+    /* Floating Canvas */
+    #heart-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 2;
+    }
+
+    /* Soft Cute Glass Cards */
+    .capy-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 3px solid #FFC2D1;
+      box-shadow: 0 12px 30px rgba(255, 117, 143, 0.15);
+    }
+
+    /* Page Navigation Smooth Transitions */
+    .page-section {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .page-section.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Infinite Marquee Animation */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 12s linear infinite;
+    }
+
+    /* Capybara Wiggle Animation */
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .animate-wiggle {
+      animation: wiggle 2s ease-in-out infinite;
+    }
+
+    /* Polaroid Pushpin & Frame Styling */
+    .polaroid-frame {
+      background: #ffffff;
+      padding: 12px 12px 20px 12px;
+      box-shadow: 0 10px 25px rgba(141, 91, 76, 0.15);
+      border-radius: 6px;
+      border: 1px solid #FFC2D1;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-capy-bg via-capy-cardBg to-capy-accent/40 text-capy-darkBrown min-h-screen font-quicksand overflow-x-hidden relative selection:bg-capy-hotPink selection:text-white">
+
+  <!-- Floating Hearts Background Canvas -->
+  <canvas id="heart-canvas"></canvas>
+
+  <!-- PERSISTENT FLOATING AUDIO PLAYER -->
+  <div class="fixed bottom-4 right-4 z-40 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border-2 border-capy-accent shadow-lg flex items-center space-x-3">
+    <button id="audio-toggle-btn" onclick="toggleAudio()" class="w-8 h-8 rounded-full bg-capy-hotPink hover:bg-capy-deepPink text-white flex items-center justify-center transition shadow focus:outline-none">
+      <span id="audio-icon" class="text-sm">▶</span>
+    </button>
+    <span class="text-xs font-bold text-capy-deepPink font-fredoka">music🎵</span>
+    <audio id="bg-music" loop>
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <main class="px-4 py-8 max-w-xl mx-auto min-h-screen relative z-10 flex flex-col justify-center items-center">
+
+    <!-- ================= SCREEN 1: PASSCODE LOCK SCREEN ================= -->
+    <section id="sec-passcode" class="page-section active w-full flex-col items-center">
+      <div class="capy-card p-6 sm:p-8 rounded-3xl text-center w-full relative overflow-hidden">
+        
+        <!-- Capybara Party SVG Icon -->
+        <div class="w-24 h-24 mx-auto mb-3 animate-wiggle">
+          <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow">
+            <polygon points="50,5 38,30 62,30" fill="#FF758F" />
+            <circle cx="50" cy="5" r="4" fill="#FFD700" />
+            <ellipse cx="50" cy="60" rx="35" ry="28" fill="#8D5B4C" />
+            <ellipse cx="20" cy="45" rx="7" ry="9" fill="#5C3D2E" />
+            <ellipse cx="80" cy="45" rx="7" ry="9" fill="#5C3D2E" />
+            <circle cx="38" cy="55" r="3" fill="#222" />
+            <circle cx="62" cy="55" r="3" fill="#222" />
+            <circle cx="39" cy="54" r="1" fill="#FFF" />
+            <circle cx="63" cy="54" r="1" fill="#FFF" />
+            <ellipse cx="50" cy="68" rx="14" ry="10" fill="#A06C5B" />
+            <ellipse cx="46" cy="67" rx="2" ry="3" fill="#3D261C" />
+            <ellipse cx="54" cy="67" rx="2" ry="3" fill="#3D261C" />
+            <circle cx="30" cy="62" r="5" fill="#FF758F" opacity="0.6" />
+            <circle cx="70" cy="62" r="5" fill="#FF758F" opacity="0.6" />
+          </svg>
+        </div>
+
+        <h1 class="font-fredoka text-2xl sm:text-3xl font-bold text-capy-deepPink mb-1">
+          Capybara Birthday Lock 🦫💖
+        </h1>
+        <p class="text-xs sm:text-sm text-capy-brown font-medium mb-5">
+          Enter secret passcode code: <span class="font-bold tracking-wider">110104</span>
+        </p>
+
+        <!-- 6 PIN Dots Indicator -->
+        <div class="flex justify-center space-x-3 mb-6">
+          <div id="dot-0" class="w-4 h-4 rounded-full border-2 border-capy-hotPink bg-white transition-all"></div>
+          <div id="dot-1" class="w-4 h-4 rounded-full border-2 border-capy-hotPink bg-white transition-all"></div>
+          <div id="dot-2" class="w-4 h-4 rounded-full border-2 border-capy-hotPink bg-white transition-all"></div>
+          <div id="dot-3" class="w-4 h-4 rounded-full border-2 border-capy-hotPink bg-white transition-all"></div>
+          <div id="dot-4" class="w-4 h-4 rounded-full border-2 border-capy-hotPink bg-white transition-all"></div>
+          <div id="dot-5" class="w-4 h-4 rounded-full border-2 border-capy-hotPink bg-white transition-all"></div>
+        </div>
+
+        <!-- Numeric Keypad Grid -->
+        <div class="grid grid-cols-3 gap-3 max-w-[260px] mx-auto mb-4">
+          <button onclick="pressKey('1')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">1</button>
+          <button onclick="pressKey('2')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">2</button>
+          <button onclick="pressKey('3')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">3</button>
+          <button onclick="pressKey('4')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">4</button>
+          <button onclick="pressKey('5')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">5</button>
+          <button onclick="pressKey('6')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">6</button>
+          <button onclick="pressKey('7')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">7</button>
+          <button onclick="pressKey('8')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">8</button>
+          <button onclick="pressKey('9')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">9</button>
+          <button onclick="pressKey('C')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xs text-capy-hotPink font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">CLEAR</button>
+          <button onclick="pressKey('0')" class="h-14 rounded-2xl bg-white border-2 border-capy-accent font-fredoka text-xl text-capy-darkBrown font-bold shadow-sm hover:bg-capy-cardBg active:scale-95 transition">0</button>
+          <button onclick="pressKey('OK')" class="h-14 rounded-2xl bg-capy-hotPink border-2 border-capy-deepPink font-fredoka text-xl text-white font-bold shadow-sm hover:bg-capy-deepPink active:scale-95 transition">✓</button>
+        </div>
+
+        <div id="passcode-msg" class="h-6 text-xs sm:text-sm font-bold text-center mt-2"></div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 2: GIFT SELECTION ================= -->
+    <section id="sec-gifts" class="page-section w-full flex-col items-center">
+      <div class="text-center mb-6">
+        <span class="text-xs font-bold text-capy-hotPink tracking-widest uppercase bg-white px-3 py-1 rounded-full border border-capy-accent shadow-sm inline-block mb-2">
+          November 1, 2026 ✨
+        </span>
+        <h2 class="font-fredoka text-3xl font-extrabold text-capy-deepPink">
+          Choose Any Gift! 🎁🦫✨
+        </h2>
+        <p class="text-xs sm:text-sm text-capy-brown font-medium mt-1">
+          Click on any Capybara gift card below to open your surprise!
+        </p>
+      </div>
+
+      <!-- 4 Interactive Gift Cards Grid -->
+      <div class="grid grid-cols-2 gap-4 w-full">
+        
+        <!-- GIFT 1: OUR MEMORIES -->
+        <div onclick="openModal('modal-memories')" class="capy-card p-5 rounded-3xl cursor-pointer hover:scale-[1.03] transition duration-300 border-2 border-capy-accent flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-capy-cardBg border-2 border-capy-hotPink flex items-center justify-center mb-2 group-hover:rotate-6 transition">
+            <span class="text-3xl">📸</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-capy-hotPink text-white uppercase tracking-wider mb-1">Gift #1</span>
+          <h3 class="font-fredoka text-base font-bold text-capy-darkBrown">
+          <p class="text-[11px] text-capy-brown mt-0.5">
+        </div>
+
+        <!-- GIFT 2: FLOWERS FOR YOU -->
+        <div onclick="openModal('modal-flowers')" class="capy-card p-5 rounded-3xl cursor-pointer hover:scale-[1.03] transition duration-300 border-2 border-capy-accent flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-capy-cardBg border-2 border-capy-hotPink flex items-center justify-center mb-2 group-hover:rotate-6 transition">
+            <span class="text-3xl">🌷</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-capy-hotPink text-white uppercase tracking-wider mb-1">Gift #2</span>
+          <h3 class="font-fredoka text-base font-bold text-capy-darkBrown">
+          <p class="text-[11px] text-capy-brown mt-0.5">
+        </div>
+
+        <!-- GIFT 3: MAIL FOR YOU -->
+        <div onclick="openModal('modal-mail')" class="capy-card p-5 rounded-3xl cursor-pointer hover:scale-[1.03] transition duration-300 border-2 border-capy-accent flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-capy-cardBg border-2 border-capy-hotPink flex items-center justify-center mb-2 group-hover:-rotate-6 transition">
+            <span class="text-3xl">💌</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-capy-hotPink text-white uppercase tracking-wider mb-1">Gift #3</span>
+          <h3 class="font-fredoka text-base font-bold text-capy-darkBrown">
+          <p class="text-[11px] text-capy-brown mt-0.5">
+        </div>
+
+        <!-- GIFT 4: SECRET DATE -->
+        <div onclick="openModal('modal-date')" class="capy-card p-5 rounded-3xl cursor-pointer hover:scale-[1.03] transition duration-300 border-2 border-capy-accent flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-capy-cardBg border-2 border-capy-hotPink flex items-center justify-center mb-2 group-hover:rotate-6 transition">
+            <span class="text-3xl">🗓️</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-capy-hotPink text-white uppercase tracking-wider mb-1">Gift #4</span>
+          <h3 class="font-fredoka text-base font-bold text-capy-darkBrown">
+          <p class="text-[11px] text-capy-brown mt-0.5">
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= POPUP MODALS ================= -->
+
+  <!-- MODAL 1: OUR MEMORIES (POLAROID SLIDESHOW WITH 1.png & 2.png) -->
+  <div id="modal-memories" class="fixed inset-0 z-50 bg-capy-darkBrown/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="capy-card p-6 rounded-3xl max-w-sm w-full relative border-4 border-capy-accent text-center">
+      <button onclick="closeModal('modal-memories')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-capy-cardBg text-capy-darkBrown hover:bg-capy-accent flex items-center justify-center font-bold">
+        ✕
+      </button>
+
+      <div class="mb-3">
+        <h3 class="font-fredoka text-xl font-bold text-capy-deepPink">Our Memories 📸🦫</h3>
+        <p class="text-xs text-capy-brown">Polaroid scrapbook slideshow</p>
+      </div>
+
+      <!-- POLAROID CAROUSEL AREA -->
+      <div class="relative w-full flex flex-col items-center justify-center my-2">
+        
+        <!-- Pushpin Decoration -->
+        <div class="absolute -top-3 z-10 text-xl">📌</div>
+
+        <!-- SLIDE 1 (Exact filename 1.png with online fallback) -->
+        <div class="slide-item active w-full flex flex-col items-center">
+          <div class="polaroid-frame transform -rotate-1 hover:rotate-0 transition duration-300 w-64">
+            <div class="w-full h-56 bg-capy-cardBg rounded overflow-hidden relative border border-capy-accent">
+              <img src="1.png" alt="1.png" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80';" class="w-full h-full object-cover" />
+            </div>
+            <div class="font-sacramento text-2xl font-bold text-capy-darkBrown mt-2 leading-none">
+             prettiest girl ever!
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2 (Exact filename 2.png with online fallback) -->
+        <div class="slide-item hidden w-full flex flex-col items-center">
+          <div class="polaroid-frame transform rotate-2 hover:rotate-0 transition duration-300 w-64">
+            <div class="w-full h-56 bg-capy-cardBg rounded overflow-hidden relative border border-capy-accent">
+              <img src="2.png" alt="2.png" onerror="this.src='https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80';" class="w-full h-full object-cover" />
+            </div>
+            <div class="font-sacramento text-2xl font-bold text-capy-darkBrown mt-2 leading-none">
+              My favorite person! 🌸
+            </div>
+          </div>
+        </div>
+
+        <!-- CAROUSEL ARROW CONTROLS -->
+        <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 border border-capy-accent text-capy-deepPink font-bold flex items-center justify-center shadow">
+          ‹
+        </button>
+        <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 border border-capy-accent text-capy-deepPink font-bold flex items-center justify-center shadow">
+          ›
+        </button>
+
+      </div>
+
+      <!-- DOT INDICATORS -->
+      <div class="flex justify-center space-x-2 mt-3">
+        <button onclick="goToSlide(0)" class="slide-dot w-2.5 h-2.5 rounded-full bg-capy-hotPink transition-all"></button>
+        <button onclick="goToSlide(1)" class="slide-dot w-2.5 h-2.5 rounded-full bg-capy-accent transition-all"></button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 2: FLOWERS FOR YOU (REAL BOUQUET + INFINITE MARQUEE) -->
+  <div id="modal-flowers" class="fixed inset-0 z-50 bg-capy-darkBrown/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="capy-card p-6 rounded-3xl max-w-sm w-full relative border-4 border-capy-accent text-center overflow-hidden">
+      <button onclick="closeModal('modal-flowers')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-capy-cardBg text-capy-darkBrown hover:bg-capy-accent flex items-center justify-center font-bold z-10">
+        ✕
+      </button>
+
+      <h3 class="font-fredoka text-2xl font-bold text-capy-deepPink mb-2">Flowers for You! 🌷✨</h3>
+      
+      <!-- Big Real Flower Bouquet Photograph Container -->
+      <div class="w-full h-52 rounded-2xl overflow-hidden border-2 border-capy-accent my-2 shadow-md relative">
+        <img src="bouquet.jpg" alt="bouquet.jpg" onerror="this.src='https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Infinite Marquee Text -->
+      <div class="bg-capy-cardBg py-2 border-y-2 border-capy-hotPink/40 overflow-hidden my-3">
+        <div class="animate-marquee whitespace-nowrap font-fredoka text-xs font-bold text-capy-deepPink">
+          <span>I LOVE YOU SO MUCH! 💖 • HAPPY BIRTHDAY! 🎉 • FOREVER & ALWAYS ✨ • I LOVE YOU SO MUCH! 💖 • HAPPY BIRTHDAY! 🎉 • FOREVER & ALWAYS ✨ • </span>
+        </div>
+      </div>
+
+      <p class="text-xs text-capy-brown font-medium">You deserve the prettiest flowers in the world today! 🌸✨</p>
+    </div>
+  </div>
+
+  <!-- MODAL 3: MAIL FOR YOU -->
+  <div id="modal-mail" class="fixed inset-0 z-50 bg-capy-darkBrown/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="capy-card p-6 rounded-3xl max-w-sm w-full relative border-4 border-capy-accent text-center">
+      <button onclick="closeModal('modal-mail')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-capy-cardBg text-capy-darkBrown hover:bg-capy-accent flex items-center justify-center font-bold z-10">
+        ✕
+      </button>
+
+      <h3 class="font-fredoka text-2xl font-bold text-capy-deepPink mb-2">Mail for You 💌🦫</h3>
+      
+      <div id="envelope-card" onclick="openLetter()" class="cursor-pointer bg-capy-cardBg p-4 rounded-2xl border-2 border-dashed border-capy-hotPink hover:scale-105 transition duration-300 my-3">
+        <div class="text-4xl mb-1">✉️</div>
+        <div class="font-fredoka text-sm font-bold text-capy-darkBrown">There's a mail for you!</div>
+        <div class="text-[10px] text-capy-deepPink font-semibold mt-0.5">(Click envelope to open)</div>
+      </div>
+
+      <div id="letter-body" class="hidden text-left bg-white p-4 rounded-2xl border border-capy-accent text-xs leading-relaxed space-y-2 text-capy-darkBrown shadow-inner">
+        <p class="font-fredoka font-bold text-capy-deepPink text-sm text-center">My Dearest Birthday Girl 🦫💖</p>
+        <p>Happy Birthday! I am always so grateful to have you in my life ali.  You bring so much love, and happiness into my world every single day.</p>
+        <p>May your special day be filled with the things that you love, cute capybaras, lots of sweet greetings, and endless love!</p>
+        <p class="font-fredoka font-bold text-right text-capy-hotPink mt-2">- ALI 💕</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: OUR SECRET DATE -->
+  <div id="modal-date" class="fixed inset-0 z-50 bg-capy-darkBrown/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="capy-card p-6 rounded-3xl max-w-sm w-full relative border-4 border-capy-accent text-center">
+      <button onclick="closeModal('modal-date')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-capy-cardBg text-capy-darkBrown hover:bg-capy-accent flex items-center justify-center font-bold">
+        ✕
+      </button>
+
+      <div class="text-4xl mb-2 animate-wiggle">🗓️🦫</div>
+      <h3 class="font-fredoka text-2xl font-bold text-capy-deepPink mb-1">Our Secret Date!</h3>
+      <p class="text-xs text-capy-brown mb-4">Get ready for a special celebration!</p>
+
+      <div class="bg-white p-4 rounded-2xl border-2 border-capy-accent space-y-2.5 text-xs sm:text-sm font-fredoka shadow-sm text-left">
+        <div class="flex justify-between border-b border-capy-cardBg pb-2">
+          <span class="text-capy-brown">📅 Date:</span>
+          <span class="text-capy-deepPink font-bold">Nov 2, 2026</span>
+        </div>
+        <div class="flex justify-between border-b border-capy-cardBg pb-2">
+          <span class="text-capy-brown">⏰ Time:</span>
+          <span class="text-capy-deepPink font-bold">12:00 PM</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-capy-brown">📍 Where:</span>
+          <span class="text-capy-hotPink font-bold">Come and find out! 😉💖</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Audio Player Controller
+    const music = document.getElementById("bg-music");
+    const audioIcon = document.getElementById("audio-icon");
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (isPlaying) {
+        music.pause();
+        audioIcon.textContent = "▶";
+        isPlaying = false;
+      } else {
+        music.play().then(() => {
+          audioIcon.textContent = "❚❚";
+          isPlaying = true;
+        }).catch(() => {});
+      }
+    }
+
+    // Passcode System (Correct: 110104)
+    let pinInput = "";
+    const correctPin = "110104";
+
+    function pressKey(val) {
+      const msgBox = document.getElementById("passcode-msg");
+      msgBox.textContent = "";
+
+      if (val === 'C') {
+        pinInput = "";
+        updatePinDots();
+        return;
+      }
+
+      if (val === 'OK') {
+        verifyPin();
+        return;
+      }
+
+      if (pinInput.length < 6) {
+        pinInput += val;
+        updatePinDots();
+        if (pinInput.length === 6) {
+          verifyPin();
+        }
+      }
+    }
+
+    function updatePinDots() {
+      for (let i = 0; i < 6; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (i < pinInput.length) {
+          dot.classList.add("bg-capy-hotPink");
+          dot.classList.remove("bg-white");
+        } else {
+          dot.classList.remove("bg-capy-hotPink");
+          dot.classList.add("bg-white");
+        }
+      }
+    }
+
+    function verifyPin() {
+      const msgBox = document.getElementById("passcode-msg");
+      if (pinInput === correctPin) {
+        msgBox.className = "h-6 text-xs sm:text-sm font-bold text-center mt-2 text-emerald-600";
+        msgBox.textContent = "Access Granted! Happy Birthday! 🎉🦫💖";
+        triggerConfetti();
+        if (!isPlaying) toggleAudio();
+
+        setTimeout(() => {
+          document.getElementById("sec-passcode").classList.remove("active");
+          document.getElementById("sec-gifts").classList.add("active");
+        }, 1000);
+      } else {
+        msgBox.className = "h-6 text-xs sm:text-sm font-bold text-center mt-2 text-rose-600";
+        msgBox.textContent = "Incorrect password, try again! 🦫💔";
+        pinInput = "";
+        updatePinDots();
+      }
+    }
+
+    // Modal Control & Slideshow Logic
+    let currentSlideIndex = 0;
+    let slideTimer = null;
+    const slides = document.querySelectorAll('.slide-item');
+    const dots = document.querySelectorAll('.slide-dot');
+
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.remove("hidden");
+      triggerConfetti();
+
+      if (modalId === 'modal-memories') {
+        currentSlideIndex = 0;
+        updateSlideView();
+        startAutoSlide();
+      }
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add("hidden");
+      if (modalId === 'modal-memories') {
+        stopAutoSlide();
+      }
+    }
+
+    function openLetter() {
+      document.getElementById('letter-body').classList.remove('hidden');
+      triggerConfetti();
+    }
+
+    function updateSlideView() {
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlideIndex) {
+          slide.classList.remove('hidden');
+          slide.classList.add('flex');
+        } else {
+          slide.classList.add('hidden');
+          slide.classList.remove('flex');
+        }
+      });
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlideIndex) {
+          dot.classList.add('bg-capy-hotPink', 'w-5');
+          dot.classList.remove('bg-capy-accent', 'w-2.5');
+        } else {
+          dot.classList.remove('bg-capy-hotPink', 'w-5');
+          dot.classList.add('bg-capy-accent', 'w-2.5');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      updateSlideView();
+    }
+
+    function prevSlide() {
+      currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+      updateSlideView();
+    }
+
+    function goToSlide(index) {
+      currentSlideIndex = index;
+      updateSlideView();
+    }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      slideTimer = setInterval(nextSlide, 4500);
+    }
+
+    function stopAutoSlide() {
+      if (slideTimer) clearInterval(slideTimer);
+    }
+
+    // Floating Hearts Canvas Animation
+    const canvas = document.getElementById("heart-canvas");
+    const ctx = canvas.getContext("2d");
+    let hearts = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 22; i++) {
+      hearts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 10 + 6,
+        speedY: Math.random() * 0.7 + 0.3,
+        opacity: Math.random() * 0.5 + 0.3
+      });
+    }
+
+    function animateHearts() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hearts.forEach(h => {
+        ctx.save();
+        ctx.globalAlpha = h.opacity;
+        ctx.fillStyle = '#FF758F';
+        ctx.font = `${h.size * 2}px serif`;
+        ctx.fillText('💖', h.x, h.y);
+        ctx.restore();
+
+        h.y -= h.speedY;
+        if (h.y < -20) {
+          h.y = canvas.height + 20;
+          h.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+
+    // Confetti Effect
+    function triggerConfetti() {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#FF758F', '#FFB3C1', '#FF4D6D', '#FFF0F3']
+      });
+    }
+  </script>
+</body>
+</html>
